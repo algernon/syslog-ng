@@ -2,8 +2,9 @@ syslog-ng (3.4.8-1~mhp1) unstable; urgency=medium
 
   [ Gergely Nagy <algernon@madhouse-project.org> ]
   * New upstream release.
+  * Add /var/log/error to the logrotate config file. (Closes: #747020)
 
- -- Gergely Nagy <algernon@madhouse-project.org>  Fri, 06 Jun 2014 14:10:08 +0200
+ -- Gergely Nagy <algernon@madhouse-project.org>  Fri, 06 Jun 2014 14:11:33 +0200
 
 syslog-ng (3.4.7-1~mhp1) unstable; urgency=medium
 
