@@ -439,6 +439,25 @@ afmongodb_vp_process_value(const gchar *name, const gchar *prefix,
     case TYPE_HINT_LITERAL:
       bson_append_string (o, name, value, -1);
       break;
+    case TYPE_HINT_LIST:
+      {
+        gchar **list;
+        gint i;
+        bson *bson_list;
+
+        bson_list = bson_new_sized(1024);
+        type_cast_to_list(value, &list, NULL);
+        for (i = 0; list[i]; i++)
+          {
+            gchar *id = g_strdup_printf("%d", i);
+
+            bson_append_string(bson_list, id, list[i], -1);
+            g_free(id);
+          }
+        bson_finish(bson_list);
+        bson_append_array(o, name, bson_list);
+        break;
+      }
     default:
       return TRUE;
     }

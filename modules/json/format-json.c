@@ -202,6 +202,30 @@ tf_json_value(const gchar *name, const gchar *prefix,
     default:
       tf_json_append_value(name, value, state, TRUE);
       break;
+    case TYPE_HINT_LIST:
+      {
+        gchar **list;
+        gint i;
+
+        if (state->need_comma)
+          g_string_append_c(state->buffer, ',');
+        g_string_append_c(state->buffer, '"');
+        g_string_append_escaped(state->buffer, name);
+        g_string_append(state->buffer, "\":[");
+
+        type_cast_to_list (value, &list, NULL);
+        for (i = 0; list[i]; i++)
+          {
+            g_string_append_c(state->buffer, '"');
+            g_string_append_escaped(state->buffer, list[i]);
+            g_string_append_c(state->buffer, '"');
+            if (list[i + 1])
+              g_string_append_c(state->buffer, ',');
+          }
+        g_string_append_c(state->buffer, ']');
+        g_strfreev(list);
+        break;
+      }
     case TYPE_HINT_LITERAL:
       tf_json_append_value(name, value, state, FALSE);
       break;

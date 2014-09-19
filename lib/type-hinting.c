@@ -60,6 +60,8 @@ type_hint_parse(const gchar *hint, TypeHint *out_type, GError **error)
     *out_type = TYPE_HINT_DATETIME;
   else if (strcmp(hint, "boolean") == 0)
     *out_type = TYPE_HINT_BOOLEAN;
+  else if (strcmp(hint, "list") == 0)
+    *out_type = TYPE_HINT_LIST;
   else if (strcmp(hint, "default") == 0)
     *out_type = TYPE_HINT_DEFAULT;
   else
@@ -214,4 +216,11 @@ type_cast_to_datetime_str(const gchar *value, const char *format,
     g_set_error(error, TYPE_HINTING_ERROR, TYPE_HINTING_INVALID_CAST,
                 "datetime_str is not supported yet");
   return FALSE;
+}
+
+gboolean
+type_cast_to_list(const gchar *value, gchar ***out, GError **error)
+{
+  *out = g_strsplit(value, ",", 0);
+  return TRUE;
 }

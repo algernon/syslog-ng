@@ -46,6 +46,7 @@ typedef enum
   TYPE_HINT_INT64,
   TYPE_HINT_DOUBLE,
   TYPE_HINT_DATETIME,
+  TYPE_HINT_LIST,
   TYPE_HINT_DEFAULT,
 } TypeHint;
 
@@ -61,5 +62,6 @@ gboolean type_cast_to_double(const gchar *value, gdouble *out, GError **error);
 gboolean type_cast_to_datetime_int(const gchar *value, guint64 *out, GError **error);
 gboolean type_cast_to_datetime_str(const gchar *value, const char *format,
                                    gchar **out, GError **error);
+gboolean type_cast_to_list(const gchar *value, gchar ***out, GError **error);
 
 #endif
